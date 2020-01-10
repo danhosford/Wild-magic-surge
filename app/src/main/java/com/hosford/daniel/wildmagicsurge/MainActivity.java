@@ -19,18 +19,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
-    private boolean mVisible;
     private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_fullscreen);
 
-        mVisible = true;
         findViewById(R.id.imageButton).setOnTouchListener(this);
-
     }
 
     private void rollSurge() {
@@ -40,9 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int upperbound=100;
         int diceRoll = rand.nextInt(upperbound);
         int surgeNumber = (int) Math.floor(diceRoll/2);
+        showSurge(surge[surgeNumber], diceRoll, surgeNumber);
+    }
+
+    private void showSurge(String s, int diceRoll, int surgeNumber) {
         Log.i(TAG, "Random Number Generated: " + diceRoll);
-        Log.i(TAG, surgeNumber + " : " + surge[surgeNumber] );
-        Toast toast = Toast.makeText(this, surge[surgeNumber], Toast.LENGTH_LONG);
+        Log.i(TAG, surgeNumber + " : " + s);
+        Toast toast = Toast.makeText(this, s, Toast.LENGTH_LONG);
         toast.show();
     }
 
