@@ -1,41 +1,26 @@
 package com.hosford.daniel.wildmagicsurge;
 
-import android.annotation.SuppressLint;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
+import java.util.Random;
+
+
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
     private static final boolean AUTO_HIDE = true;
-
-    /**
-     * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
-     * user interaction before hiding the system UI.
-     */
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
-
     private boolean mVisible;
+    private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +30,33 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         mVisible = true;
         findViewById(R.id.imageButton).setOnTouchListener(this);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
 
     }
 
+    private void rollSurge() {
+        Resources res = getResources();
+        String[] surge = res.getStringArray(R.array.surge_array);
+        Random rand = new Random();
+        int upperbound=100;
+        int diceRoll = rand.nextInt(upperbound);
+        int surgeNumber = (int) Math.floor(diceRoll/2);
+        Log.i(TAG, "Random Number Generated: " + diceRoll);
+        Log.i(TAG, surgeNumber + " : " + surge[surgeNumber] );
+        Toast toast = Toast.makeText(this, surge[surgeNumber], Toast.LENGTH_LONG);
+        toast.show();
+    }
 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        switch(v.getId()) {
+            case R.id.imageButton:
+                rollSurge();
+                break;
+             default:
+                 break;
+            }
+
         return false;
     }
 }
