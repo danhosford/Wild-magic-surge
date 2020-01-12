@@ -6,14 +6,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.Random;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final boolean AUTO_HIDE = true;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
     private static final int UI_ANIMATION_DELAY = 300;
@@ -25,8 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-
-        findViewById(R.id.imageButton).setOnTouchListener(this);
+        findViewById(R.id.imageButton).setOnClickListener(this);
     }
 
     private void rollSurge() {
@@ -46,17 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         toast.show();
     }
 
-
     @Override
-    public boolean onTouch(View v, MotionEvent event) {
+    public void onClick(View v) {
         switch(v.getId()) {
             case R.id.imageButton:
                 rollSurge();
                 break;
-             default:
-                 break;
-            }
-
-        return false;
+            default:
+                break;
+        }
     }
 }
