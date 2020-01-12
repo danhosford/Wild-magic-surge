@@ -30,14 +30,14 @@ public class MainActivityTest {
     @Test
 
     public void testLaunch(){
-        View v = mActivity.findViewById(R.id.imageButton);
+        View v = mActivity.findViewById(R.id.btnSurge);
         assertNotNull(v);
     }
 
     @Test
     public void testSurgeButton(){
         for(int i =0; i<1000; i++){
-            Espresso.onView(withId(R.id.imageButton)).perform(click());
+            Espresso.onView(withId(R.id.btnSurge)).perform(click());
         }
     }
 

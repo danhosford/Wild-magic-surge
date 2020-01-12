@@ -19,31 +19,32 @@
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/ivD10"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:contentDescription="@string/d10_image"
             android:src="@drawable/d10" />
 
         <TextView
             android:id="@+id/tvDiceRoll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight=".5"
+            android:fontFamily="@font/almendra_sc"
             android:gravity="center"
-            android:text="TEST" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/tvSurge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="35dp"
             android:layout_weight="8"
+            android:fontFamily="@font/almendra_sc"
             android:gravity="center"
-            android:text="TEST" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:autoSizeTextType="uniform" />
     </LinearLayout>
 </FrameLayout>

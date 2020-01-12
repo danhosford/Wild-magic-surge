@@ -5,31 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
+
+import java.util.Objects;
 import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final boolean AUTO_HIDE = true;
-    private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-    private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private String TAG = "MainActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try
+        {
+            Objects.requireNonNull(this.getSupportActionBar()).hide();
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_fullscreen);
-        findViewById(R.id.imageButton).setOnClickListener(this);
+        findViewById(R.id.btnSurge).setOnClickListener(this);
     }
 
     public void rollSurge() {
@@ -39,26 +37,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int upperbound=100;
         int diceRoll = rand.nextInt(upperbound);
         int surgeNumber = (int) Math.floor(diceRoll/2);
-        showSurge(surge[surgeNumber], diceRoll, surgeNumber);
+        showSurge(surge[surgeNumber], diceRoll);
     }
 
-    private void showSurge(String s, int diceRoll, int surgeNumber) {
+    private void showSurge(String s, int diceRoll) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SurgeTextFragment fragment = new SurgeTextFragment(s, diceRoll);
         fragmentTransaction.add(R.id.fragment_frame, fragment);
         fragmentTransaction.commit();
-        Log.i(TAG, "Random Number Generated: " + diceRoll);
-        Log.i(TAG, surgeNumber + " : " + s);
-        Toast toast = Toast.makeText(this, s, Toast.LENGTH_LONG);
-        toast.show();
     }
 
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.imageButton:
+            case R.id.btnSurge:
                 rollSurge();
                 break;
             default:

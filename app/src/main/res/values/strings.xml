@@ -4,4 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wms_btn_descripton">wms button</string>
+    <string name="sorcerer_icon_button">Sorcerer Icon Button</string>
+    <string name="wotc_sorc_image">Wizards of the Coast Sorcerer Image</string>
+    <string name="d10_image">d10 image</string>
 </resources>

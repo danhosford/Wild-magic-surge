@@ -9,12 +9,13 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnSurge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
         android:scaleType="centerInside"
-        app:srcCompat="@drawable/main_button_selector" />
+        app:srcCompat="@drawable/main_button_selector"
+        android:contentDescription="@string/sorcerer_icon_button" />
 
     <FrameLayout
         android:id="@+id/fragment_frame"
@@ -24,9 +25,10 @@
         android:fitsSystemWindows="true">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/wotc_sorc_image"
             app:srcCompat="@drawable/sorcerer_image_dnd" />
 
     </FrameLayout>
