@@ -2,6 +2,10 @@ package com.hosford.daniel.wildmagicsurge;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View mContentView;
     private String TAG = "MainActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.imageButton).setOnClickListener(this);
     }
 
-    private void rollSurge() {
+    public void rollSurge() {
         Resources res = getResources();
         String[] surge = res.getStringArray(R.array.surge_array);
         Random rand = new Random();
@@ -38,11 +43,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void showSurge(String s, int diceRoll, int surgeNumber) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SurgeTextFragment fragment = new SurgeTextFragment(s, diceRoll);
+        fragmentTransaction.add(R.id.fragment_frame, fragment);
+        fragmentTransaction.commit();
         Log.i(TAG, "Random Number Generated: " + diceRoll);
         Log.i(TAG, surgeNumber + " : " + s);
         Toast toast = Toast.makeText(this, s, Toast.LENGTH_LONG);
         toast.show();
     }
+
 
     @Override
     public void onClick(View v) {
