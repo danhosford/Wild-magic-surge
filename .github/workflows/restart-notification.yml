@@ -11,7 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 2
+          fetch-depth: 4
+          
+      - name: Output tag name
+        run: |
+          echo "::set-output name=tag_name::${GITHUB_REF#refs/tags/}"
 
       - name: Determine previous tag
         id: previous_tag
