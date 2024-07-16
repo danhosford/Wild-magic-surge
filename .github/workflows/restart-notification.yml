@@ -17,26 +17,12 @@ jobs:
         run: |
           echo "::set-output name=tag_name::${GITHUB_REF#refs/tags/}"
 
-      - name: Determine previous tag
-        id: previous_tag
-        run: |
-          previous_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1 --skip=1))
-          echo "previous_tag=${previous_tag}" >> $GITHUB_OUTPUT
 
-      - name: Check for file changes
-        id: file_change_check
-        run: |
-          changed_files=$(git diff --name-only $GITHUB_OUTPUT.previous_tag HEAD github-actions-demo.yml)
-          if [ -z "$changed_files" ]; then
-            echo "file_changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "file_changed=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Send Mailgun email
+      - name: Post to webhook
         if: steps.file_change_check.outputs.file_changed == 'true'
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install mailgun-js
-      - run: node index.js
+        run: |
+          npm install
+          node index.js
+        env:
+          WEBHOOK_URL: ${{ https://prod-188.westus.logic.azure.com:443/workflows/a0230fdd6dcb4fcf938235b08575f906/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=UjoaaHQUIZedJvDgXhxMZ1qI0UlLIOGzTO8YPIcCJ2w }}
+          TAG_NAME: ${{ steps.output_tag_name.outputs.tag_name }}
