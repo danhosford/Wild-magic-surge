@@ -19,7 +19,6 @@ jobs:
 
 
       - name: Post to webhook
-        if: steps.file_change_check.outputs.file_changed == 'true'
         run: |
           npm install
           node index.js
