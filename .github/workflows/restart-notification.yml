@@ -1,0 +1,38 @@
+name: Check for File Changes and Send Email
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  check_file_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Determine previous tag
+        id: previous_tag
+        run: |
+          previous_tag=$(git describe --abbrev=0 --tags $(git rev-list --tags --max-count=1 --skip=1))
+          echo "previous_tag=${previous_tag}" >> $GITHUB_OUTPUT
+
+      - name: Check for file changes
+        id: file_change_check
+        run: |
+          changed_files=$(git diff --name-only $GITHUB_OUTPUT.previous_tag HEAD github-actions-demo.yml)
+          if [ -z "$changed_files" ]; then
+            echo "file_changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "file_changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Mailgun email
+        if: steps.file_change_check.outputs.file_changed == 'true'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install mailgun-js
+      - run: node index.js
