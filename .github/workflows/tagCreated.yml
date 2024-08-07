@@ -1,8 +1,7 @@
 name: Check notification
 
 on:
-  push: {}
-  release: {}
+  workflow_dispatch:
 
 jobs:
   success:
@@ -14,7 +13,7 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: always()
         with:
-          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
           needs: ${{ toJson(needs) }}
           job: ${{ toJson(job) }}
           steps: ${{ toJson(steps) }}
@@ -30,7 +29,7 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: always()
         with:
-          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
 
   with_overwrite:
     name: One with overwrite
@@ -41,7 +40,7 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: always()
         with:
-          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
           overwrite: "{title: `Overwrote title in ${workflow_link}`}"
 
   with_raw:
@@ -53,7 +52,7 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: always()
         with:
-          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
           raw: >-
             {
               "@type": "MessageCard",
@@ -70,4 +69,4 @@ jobs:
         uses: skitionek/notify-microsoft-teams@master
         if: failure()
         with:
-          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
