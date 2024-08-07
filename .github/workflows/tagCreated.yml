@@ -4,80 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  post_to_webhook:
+  notify:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: distributhor/workflow-webhook@v3
+      - name: Notify
+        uses: davidwengier/PostAdaptiveCard@v1.0.0
         with:
-          webhook_type: 'json-extended'
-          webhook_url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
-          data: '{
-            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-            "type": "AdaptiveCard",
-            "version": "1.0",
-            "body": [
-                {
-                    "type": "TextBlock",
-                    "text": "Poll Request",
-                    "id": "Title",
-                    "spacing": "Medium",
-                    "horizontalAlignment": "Center",
-                    "size": "ExtraLarge",
-                    "weight": "Bolder",
-                    "color": "Accent"
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "Header Tagline Text",
-                    "id": "acHeaderTagLine",
-                    "separator": true
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "Poll Header",
-                    "weight": "Bolder",
-                    "size": "ExtraLarge",
-                    "spacing": "None",
-                    "id": "acHeader"
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vestibulum lorem eget neque sollicitudin, quis malesuada felis ultrices. ",
-                    "id": "acInstructions",
-                    "wrap": true
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "Poll Question",
-                    "id": "acPollQuestion"
-                },
-                {
-                    "type": "Input.ChoiceSet",
-                    "placeholder": "Select from these choices",
-                    "choices": [
-                        {
-                            "title": "Choice 1",
-                            "value": "Choice 1"
-                        },
-                        {
-                            "title": "Choice 2",
-                            "value": "Choice 2"
-                        },
-                        {
-                            "title": "Choice 3",
-                            "value": "Choice 3"
-                        }
-                    ],
-                    "id": "acPollChoices",
-                    "style": "expanded"
-                }
-            ],
-            "actions": [
-                {
-                    "type": "Action.Submit",
-                    "title": "Submit",
-                    "id": "btnSubmit"
-                }
-            ]
-        }'
-          
+          webhook-uri: webhook_url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
