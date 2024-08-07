@@ -12,4 +12,4 @@ jobs:
           webhook_type: 'json-extended'
           webhook_url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
           data: '{ "weapon": "hammer", "drink" : "beer" }'
-          response-body: 'Triggered by github actions'
+          json: '{ "repository": "${{github.event.repository.full_name}}", "number": "${{github.event.number}}", "created_at": "${{github.event.pull_request.created_at}}", "updated_at": "${{github.event.pull_request.updated_at}}" }'
