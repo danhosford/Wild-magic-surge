@@ -1,0 +1,26 @@
+name: Send JSON to Webhook
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  send_json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16   
+
+      - name: Install dependencies
+        run: npm 
+          install axios
+      - name: Send JSON to webhook
+        run: |
+          #!/bin/bash
+          # Replace with your actual webhook URL and JSON payload
+          webhook_url='https://your-webhook-endpoint'
+          json_data='{"message": "Hello from GitHub Actions!"}'
+
+          curl -X POST -H "Content-Type: application/json" -d "${json_data}" "${secrets.TEAMS_WEBHOOK_URL}"
