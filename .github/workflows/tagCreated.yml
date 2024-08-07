@@ -1,16 +1,33 @@
-name: Post to Webhook
-
+name: build
 on:
-  workflow_dispatch:
+  pull_request:
 
 jobs:
-  post_to_webhook:
+  testJob:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - run: |
+        exit 0
+  build:
+    name: Checkout and notify
+    needs: [ TestJob ]
+    if: ${{always()}}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    # this is the new step
-    - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
-      if: always()
-      with:
-        github-token: ${{ github.token }}
-        webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - uses: freezer00/teams-webhook-action@v1.4.1
+        with:
+          webhook_url: ${{secrets.webhook}}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          title: Custom title
+          additional_button_title: |-
+            Link to Google
+            Link to Microsoft
+          additional_button_url: |-
+            https://google.com
+            https://www.microsoft.com/de-de/microsoft-teams
+          hide_facts: false
+          dry_run: false
