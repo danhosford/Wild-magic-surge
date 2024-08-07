@@ -7,8 +7,10 @@ jobs:
   post_to_webhook:
     runs-on: ubuntu-latest
     steps:
-      - uses: distributhor/workflow-webhook@v3
-        with:
-          webhook_type: 'json-extended'
-          webhook_url: 	https://webhook.site/a48123de-0687-45dd-8d3f-8401497d13f9
-          data: '{ "weapon": "hammer", "drink" : "beer" }'
+    - uses: actions/checkout@v2
+    # this is the new step
+    - uses: dchourasia/ms-teams-notification@1.0 #  or "./" if in a local set-up
+      if: always()
+      with:
+        github-token: ${{ github.token }}
+        webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
