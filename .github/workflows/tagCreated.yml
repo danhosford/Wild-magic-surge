@@ -9,5 +9,6 @@ jobs:
     steps:
       - uses: distributhor/workflow-webhook@v3
         with:
-          url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
-          payload: '{"message": "Hello from GitHub Action"}'
+          webhook_type: 'json-extended'
+          webhook_url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
+          data: '{ "weapon": "hammer", "drink" : "beer" }'
