@@ -11,4 +11,4 @@ jobs:
         with:
           webhook_type: 'json-extended'
           webhook_url: https://prod-58.westus.logic.azure.com:443/workflows/64092e0af1254435a6f8c0225da3abff/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=to2G3KisKvlCXorFK53OcITfRbA_4J7bOAfenFAHcHo
-          data: '{ "$schema": "https://adaptivecards.io/schemas/adaptive-card.json", "type": "AdaptiveCard", "version": "1.0", "body": [ { "type": "TextBlock", "text": "TEST", "wrap": "true" }, { "type": "Input.ChoiceSet", "placeholder": "Select from these choices", "choices": [ { "title": "Choice 1", "value": "Choice 1" }, { "title": "Choice 2", "value": "Choice 2" } ], "id": "acPollChoices", "style": "expanded" } ], "actions": [{ "type": "Action.Submit", "title": "Submit", "id": "btnSubmit" }] }'
+          data: '{ "weapon": "hammer", "drink" : "beer" }'
