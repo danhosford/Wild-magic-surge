@@ -1,0 +1,3 @@
+ALTER TABLE kafkaMessages
+ADD CONSTRAINT DF_kafkaMessages_kafkaConsumer
+DEFAULT 0 FOR kafkaConsumer;
