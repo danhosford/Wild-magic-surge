@@ -19,30 +19,6 @@ jobs:
           steps: ${{ toJson(steps) }}
           
 
-
-  without_optional_params:
-    name: One with little info
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-
-  with_overwrite:
-    name: One with overwrite
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          overwrite: "{title: `Overwrote title in ${workflow_link}`}"
-
   with_raw:
     name: One with raw data
     runs-on: ubuntu-latest
@@ -60,13 +36,3 @@ jobs:
               "title": "No ${variables} avaliable in here"
             }
 
-  if_failure:
-    name: Only if failure
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: failure()
-        with:
-          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
