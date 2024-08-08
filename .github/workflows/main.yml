@@ -2,20 +2,23 @@ name: Check for New Files
 
 on:
   push:
-    branches: [ master ]  # Replace with your desired branch
+    paths:
+      - flyway/
 
-jobs:
-  check_new_files:
+jobs:        
+  with_raw:
+    name: One with raw data
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Determine new files
-        run: |
-          # Replace 'your_folder' with the actual folder path
-          new_files=$(git diff --name-only HEAD^ HEAD 'flyway/sql' | grep '^A ')
-          if [ -n "$new_files" ]; then
-            echo "New files detected:"
-            echo "$new_files"
-            # Replace with your webhook URL and desired payload format
-            curl -X POST 	https://webhook.site/a48123de-0687-45dd-8d3f-8401497d13f9 -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
-          fi
+      - uses: actions/checkout@master
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          raw: >-
+            {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "title": "No ${variables} avaliable in here"
+            }
