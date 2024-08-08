@@ -28,11 +28,11 @@ jobs:
         uses: tj-actions/changed-files@v44
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
         env:
-          JSON_DOC: ${{ toJSON(${{ steps.changed-files.outputs.all_changed_files }}) }}
+          JSON_DOC: ${{toJSON(${{steps.changed-files.outputs.all_changed_files}})}}
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          data: ${{JSON_DOC}}
+          data: ${{ JSON_DOC }}
       
 
