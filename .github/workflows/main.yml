@@ -1,26 +1,20 @@
-name: Send JSON to Webhook
+name: Check for New SQL Files
 
 on:
-  workflow_dispatch:
-    
+  push:
+    branches: [ master ]  # Replace with your desired branch
+
 jobs:
-  send_json:
+  check_new_files:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16   
-
-      - name: Install dependencies
-        run: npm 
-          install axios
-      - name: Send JSON to webhook
+      - name: Determine new SQL files
         run: |
-          #!/bin/bash
-          # Replace with your actual webhook URL and JSON payload
-          webhook_url='https://your-webhook-endpoint'
-          json_data='{"title": "Publish Adaptive Card Schema","description": "Now that we have defined the main rules and features of the format, we need to produce a schema and publish it to GitHub. The schema will be the starting point of our reference documentation.",  "creator": {"name": "Matt Hidinger","profileImage": "https://pbs.twimg.com/profile_images/3647943215/d7f12830b3c17a5a9e4afcc370e3a37e_400x400.jpeg" },"createdUtc": "2017-02-14T06:08:39Z","viewUrl": "https://adaptivecards.io","properties": [{ "key": "Board", "value": "Adaptive Cards" },{ "key": "List", "value": "Backlog" },{ "key": "Assigned to", "value": "Matt Hidinger" },{ "key": "Due date", "value": "Not set" }]}'
-
-          curl -X POST -H "Content-Type: application/json" -d "${json_data}" "${{ secrets.TEAMS_WEBHOOK_URL }}"
+          new_files=$(git diff --name-only HEAD^ HEAD flyway/sql | grep '^A ')
+          if [ -n "$new_files" ]; then
+            echo "New SQL files detected:"
+            echo "$new_files"
+            # Replace with your webhook URL and desired payload format
+            curl -X POST ${{ secrets.TEAMS_WEBHOOK_URL }} -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
+          fi
