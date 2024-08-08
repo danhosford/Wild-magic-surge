@@ -3,22 +3,7 @@ name: Check notification
 on:
   workflow_dispatch:
 
-jobs:
-  success:
-    name: One with everything
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          needs: ${{ toJson(needs) }}
-          job: ${{ toJson(job) }}
-          steps: ${{ toJson(steps) }}
-          
-
+jobs:        
   with_raw:
     name: One with raw data
     runs-on: ubuntu-latest
