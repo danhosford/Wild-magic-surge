@@ -27,11 +27,11 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v44
       # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
+      - name: Invoke deployment hook
+        uses: distributhor/workflow-webhook@v3
+        with:
+          webhook_type: 'json-extended'
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          data: '{ "weapon": "hammer", "drink" : "beer" }'
+      
 
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
