@@ -2,7 +2,7 @@ name: Check for New Files
 
 on:
   push:
-    branches: [ main ]  # Replace with your desired branch
+    branches: [ master ]  # Replace with your desired branch
 
 jobs:
   check_new_files:
