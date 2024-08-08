@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Determine new SQL files
         run: |
-          new_files=$(git diff --name-only HEAD^ HEAD flyway/sql | grep '^A ')
+          new_files=$(git diff --name-only HEAD~ HEAD flyway/sql | grep '^A ')
           if [ -n "$new_files" ]; then
             echo "New SQL files detected:"
             echo "$new_files"
             # Replace with your webhook URL and desired payload format
-            curl -X POST ${{ secrets.TEAMS_WEBHOOK_URL }} -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
+            curl -X POST https://your-webhook-url -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
           fi
+
