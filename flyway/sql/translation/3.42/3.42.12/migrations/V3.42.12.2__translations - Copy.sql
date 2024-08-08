@@ -11,8 +11,7 @@ CREATE TABLE #translations
     [target]  VARCHAR(525)
 );
 INSERT INTO #translations ([id], [active], [uuid], [section], [page], [target])
-VALUES (2412, 1, '353c2380-17c6-4395-8a20-a9a1cf7bb13f', '', '', N'A new action task has been created that requires your attention by'),
-       (2413, 1, 'c6b4c0c9-6c2b-4b95-9b47-167b2d4f6102', '', '', N'Click here to view the created action task')
+VALUES (2395, 1, 'b84ba5b2-a646-432b-8072-d898817b4ac3', '', '', N'Location Status')
 ;
 
 SET IDENTITY_INSERT [kioskLanguage] ON;
