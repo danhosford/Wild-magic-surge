@@ -16,6 +16,6 @@ jobs:
             echo "New SQL files detected:"
             echo "$new_files"
             # Replace with your webhook URL and desired payload format
-            curl -X POST https://your-webhook-url -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
+            curl -X POST 	https://webhook.site/a48123de-0687-45dd-8d3f-8401497d13f9 -H "Content-Type: application/json" -d "{\"files\":[$new_files]}"
           fi
 
