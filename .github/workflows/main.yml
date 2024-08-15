@@ -10,3 +10,4 @@ jobs:
     - uses: johannes-huther/webhook.sh@v1
       env:
         webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
