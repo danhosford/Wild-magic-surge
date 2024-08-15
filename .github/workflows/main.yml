@@ -1,0 +1,12 @@
+name: Flyway Changed
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  workflow_dispatch:
+jobs:
+  send-summary:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+    - uses: CalmDownVal/webhook-summary@v1
+      with:
+        url: ${{ secrets.TEAMS_WEBHOOK_URL }}
