@@ -42,6 +42,6 @@ jobs:
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          data: "${{ steps.changed-files.outputs.all_changed_files }}"
+          data: '${{ toJson(steps.changed-files.outputs.all_changed_files) }}'
       
 
