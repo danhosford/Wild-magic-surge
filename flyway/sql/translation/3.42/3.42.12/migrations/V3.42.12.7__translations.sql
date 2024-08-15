@@ -11,8 +11,8 @@ CREATE TABLE #translations
     [target]  VARCHAR(525)
 );
 INSERT INTO #translations ([id], [active], [uuid], [section], [page], [target])
-VALUES (2409, 1, '0f28063c-92f7-4ae0-bfb4-45aa066aa63a', '', '', N'A COSHH product you have requested has been approved'),
-       (2411, 1, '68d6c5e0-d550-45d7-a00c-7c5824649bfd', '', '', N'Click here to view the approved product')
+VALUES (2412, 1, '353c2380-17c6-4395-8a20-a9a1cf7bb13f', '', '', N'A new action task has been created that requires your attention by'),
+       (2413, 1, 'c6b4c0c9-6c2b-4b95-9b47-167b2d4f6102', '', '', N'Click here to view the created action task')
 ;
 
 SET IDENTITY_INSERT [kioskLanguage] ON;
