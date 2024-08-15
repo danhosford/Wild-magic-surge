@@ -1,0 +1,31 @@
+INSERT INTO [dbo].[kioskSite]
+    ([kioskSiteUUID]
+    ,[kioskID]
+    ,[kioskSitePublicUUID]
+    ,[kioskSiteName]
+    ,[kioskSiteIsActive]
+    ,[kioskSiteCreateBy]
+    ,[kioskSiteCreateUTC]
+    ,[contractorSystemToUse]
+    ,[contractorAccountCompanyMandatory]
+    ,[contractorCanSeePermits]
+    ,[name]
+    ,[contractorCanSeeDocuments]
+    ,[velocityCustomerLocationUUID]
+    ,[persistCompanyListFilter])
+VALUES
+   ('0b8295d0-3aee-47b9-998f-ee7b7856bf16'
+   ,5066
+   ,'eaae8906-8fe3-47ea-801c-039a8e27bfe9'
+   ,'A_Cork_1'
+   ,1
+   ,0
+   ,GETDATE()
+   ,2
+   ,0
+   ,2
+   ,'A_Cork_1'
+   ,1
+   ,'dffebb18-7787-46d7-a385-bb5c8a7c824a'
+   ,0)
+GO
