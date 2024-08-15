@@ -1,0 +1,2 @@
+ALTER TABLE entryLogChangeTracking
+DROP COLUMN permitPublicKey;
