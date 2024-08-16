@@ -17,31 +17,21 @@ jobs:
   # ----------------------------------------------------------------------------------------------
   changed_files:
     runs-on: ubuntu-latest  # windows-latest || macos-latest
-    name: Test changed-files
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      # -----------------------------------------------------------------------------------------------------------
-      # Example 1
-      # -----------------------------------------------------------------------------------------------------------
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v44
-        # To compare changes between the current commit and the last pushed remote commit set `since_last_remote_commit: true`. e.g
-        # with:
-        #   since_last_remote_commit: true 
-
-      - name: List all changed files
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      - name: List SQL files in Flyway folder
         run: |
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
+          find flyway -type f -name "*.sql" | xargs -n 1 basename > file_list.txt
+
+      - name: Create array of file names
+        id: create-array
+        run: |
+          echo "::set-output name=file_names::$(cat file_list.txt)"
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          data: '${{ toJson(steps.changed-files.outputs.all_changed_files) }}'
+          data: '${{ toJson(create-array.outputs.file_names) }}'
       
 
