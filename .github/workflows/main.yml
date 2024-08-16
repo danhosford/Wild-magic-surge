@@ -26,10 +26,16 @@ jobs:
         id: create-array
         run: |
           echo "::set-output name=file_names::$(cat file_list.txt)"
+
+      - name: Convert file names to JSON
+        id: convert-to-json
+        run: |
+          echo '{"files": ['$(cat file_list.txt | jq -R '. as $line | "\"\($line)\"" | paste -sd ,)') '}' > file_names.json
+          
       - name: Invoke deployment hook
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          data: ${{ toJSON(create-array.file_names) }}
+          data: '$(cat file_names.json)'
       
 
