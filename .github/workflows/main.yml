@@ -32,6 +32,6 @@ jobs:
         uses: distributhor/workflow-webhook@v3
         with:
           webhook_url: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          data: '${{ toJson(create-array.outputs.file_names) }}'
+          data: "$(cat file_names.json)"
       
 
