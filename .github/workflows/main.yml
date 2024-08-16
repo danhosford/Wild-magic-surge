@@ -1,9 +1,7 @@
 name: CI
 
 on:
-  push:
-    paths:
-      - flyway/**
+  workflow_dispatch
 
 jobs:
   # -------------------------------------------------------------
