@@ -26,7 +26,7 @@ jobs:
       - name: Output results
         uses: distributhor/workflow-webhook@v3
         with:
-          webhook_url: 'https://www.postb.in/1728945684211-1323720561340'
+          webhook_url: 'https://webhook.site/7c30665a-7c2a-41b3-9e74-a2f295ecc52b'
           event_name: ${{ github.actor }}
           data: '${{ needs.list-files.outputs.paths }}'
       
