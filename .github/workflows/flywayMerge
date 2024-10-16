@@ -1,0 +1,39 @@
+name: Flyway Script Order Check
+
+on:
+  pull_request:
+    types: [pull_request, pull_request_target]
+
+jobs:
+  check_script_order:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: List open pull requests
+        run: |
+          open_prs=$(curl -s "https://api.github.com/repos/${{ github.repository }}/pulls?state=open")
+      - name: Check script order
+        run: |
+          current_pr_files=$(git diff --name-only --cached)
+          current_pr_flyway_scripts=$(echo "$current_pr_files" | grep -E '^V__*.sql$')
+          current_pr_flyway_versions=$(echo "$current_pr_flyway_scripts" | sed 's/^V__\(.*\)\.sql$/\1/')
+
+          for open_pr in $open_prs; do
+            open_pr_number=$(jq -r '.number' <<< "$open_pr")
+            if [[ "$open_pr_number" -eq "${{ github.event.number }}" ]]; then
+              continue
+            fi
+
+            open_pr_files=$(curl -s "https://api.github.com/repos/${{ github.repository }}/pulls/${open_pr_number}/files" | jq -r '.[].filename')
+            open_pr_flyway_scripts=$(echo "$open_pr_files" | grep -E '^V__*.sql$')
+            open_pr_flyway_versions=$(echo "$open_pr_flyway_scripts" | sed 's/^V__\(.*\)\.sql$/\1/')
+
+            for current_pr_version in $current_pr_flyway_versions; do
+              for open_pr_version in $open_pr_flyway_versions; do
+                if [[ $(semver -c "$current_pr_version < $open_pr_version") -eq 1 ]]; then
+                  echo "::warning:: Pull request #${{ github.event.number }} contains a Flyway script (V__${current_pr_version}.sql) with a lower version than another open pull request (V__${open_pr_version}.sql). Please merge the higher version pull request first."
+                  exit 1
+                fi
+              done
+            done
+          done
